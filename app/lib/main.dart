@@ -1,3 +1,6 @@
+import 'package:app/account_page.dart';
+import 'package:app/home_page.dart';
+import 'package:app/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,7 +27,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Teste de título'),
+      // home: LoginPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginPage(),
+        '/home': (context) => HomePage(),
+        '/account': (context) => AccountPage()
+      },
     );
   }
 }
