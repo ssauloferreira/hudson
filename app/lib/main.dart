@@ -1,6 +1,9 @@
-import 'package:app/account_page.dart';
-import 'package:app/home_page.dart';
-import 'package:app/login_page.dart';
+import 'package:app/app/database/db.dart';
+import 'package:app/app/views/account_details_view.dart';
+import 'package:app/app/views/account_list_view.dart';
+import 'package:app/app/views/card_view.dart';
+import 'package:app/app/views/home_view.dart';
+import 'package:app/app/views/login_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,7 +35,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/home': (context) => HomePage(),
-        '/account': (context) => AccountPage()
+        '/account_list': (context) => AccountListPage(),
+        '/card': (context) => CardPage(),
+        '/account_details': (context) => AccountDetailsPage()
       },
     );
   }

@@ -1,4 +1,3 @@
-import 'package:app/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -45,8 +44,6 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 15),
                 FilledButton(
                     onPressed: () {
-                      print(email);
-                      print(password);
                       Navigator.of(context).pushReplacementNamed('/home');
                     },
                     child: Text('Entrar')),
