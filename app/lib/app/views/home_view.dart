@@ -70,7 +70,7 @@ class CardCardWidget extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed('/card');
+          Navigator.of(context).pushNamed('/card_list');
         },
         child: Padding(
           padding: const EdgeInsets.all(12),

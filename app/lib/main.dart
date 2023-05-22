@@ -1,10 +1,12 @@
 import 'package:app/app/database/db.dart';
 import 'package:app/app/views/account_details_view.dart';
 import 'package:app/app/views/account_list_view.dart';
-import 'package:app/app/views/card_view.dart';
+import 'package:app/app/views/card_list_view.dart';
 import 'package:app/app/views/home_view.dart';
 import 'package:app/app/views/login_view.dart';
 import 'package:flutter/material.dart';
+
+import 'app/views/card_details_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,8 +38,9 @@ class MyApp extends StatelessWidget {
         '/': (context) => LoginPage(),
         '/home': (context) => HomePage(),
         '/account_list': (context) => AccountListPage(),
-        '/card': (context) => CardPage(),
-        '/account_details': (context) => AccountDetailsPage()
+        '/account_details': (context) => AccountDetailsPage(),
+        '/card_list': (context) => CardListPage(),
+        '/card_details': (context) => CardDetailsPage(),
       },
     );
   }

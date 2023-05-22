@@ -3,35 +3,32 @@ import 'package:app/app/repositories/account_repository.dart';
 
 class AccountController {
   late AccountRepository repository;
-  late List<AccountModel> accounts;
-  late List<AccountTypeModel> accountTypes;
-  late List<BankModel> banks;
 
   AccountController() {
     repository = AccountRepository();
-
-    accounts = repository.getAccounts();
-    accountTypes = repository.getAccountTypes();
-    banks = repository.getBanks();
   }
 
-  List<AccountModel> getAccounts() {
-    return accounts;
+  Future<List<AccountModel>> getAccounts() {
+    return repository.getAccounts();
   }
 
-  List<AccountTypeModel> getAccountTypes() {
-    return accountTypes;
+  Future<List<AccountTypeModel>> getAccountTypes() {
+    return repository.getAccountTypes();
   }
 
-  List<BankModel> getBanks() {
-    return banks;
+  Future<List<BankModel>> getBanks() {
+    return repository.getBanks();
   }
 
   createAccount(AccountModel account) {
     repository.insertAccount(account);
   }
 
-  updaeAccount(AccountModel account) {
+  updateAccount(AccountModel account) {
     repository.updateAccount(account);
+  }
+
+  deleteAccount(AccountModel account) {
+    repository.deleteAccount(account);
   }
 }

@@ -1,25 +1,23 @@
 import 'dart:async';
-import 'dart:ffi';
 
-import 'package:app/app/components/sidebar_widget.dart';
-import 'package:app/app/controllers/account_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 
-import '../models/account_model.dart';
+import '../controllers/card_controller.dart';
+import '../models/card_model.dart';
 
-class AccountListPage extends StatefulWidget {
-  const AccountListPage({super.key});
+class CardListPage extends StatefulWidget {
+  const CardListPage({super.key});
 
   @override
-  State<AccountListPage> createState() => _AccountListPageState();
+  State<CardListPage> createState() => _CardListPageState();
 }
 
-class _AccountListPageState extends State<AccountListPage> {
-  final accountController = AccountController();
-  late List<AccountModel> accounts = [];
+class _CardListPageState extends State<CardListPage> {
+  final cardController = CardController();
+  late List<CardModel> cards = [];
 
   @override
   void initState() {
@@ -32,42 +30,42 @@ class _AccountListPageState extends State<AccountListPage> {
   }
 
   refreshData() {
-    loadAccounts().then((itens) {
+    loadCards().then((itens) {
       setState(() {
-        accounts = itens;
+        cards = itens;
       });
     });
   }
 
-  Future<List<AccountModel>> loadAccounts() async {
-    return await accountController.getAccounts();
+  Future<List<CardModel>> loadCards() async {
+    return await cardController.getCards();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Contas"),
+        title: Text("Cartões"),
       ),
       body: Column(
-        children: AccountCard(context).toList(),
+        children: CardCard(context).toList(),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.of(context).pushNamed('/account_details').then(onBack);
+          Navigator.of(context).pushNamed('/card_details').then(onBack);
         },
       ),
     );
   }
 
-  Iterable<Card> AccountCard(BuildContext context) {
-    return accounts.map(
+  Iterable<Card> CardCard(BuildContext context) {
+    return cards.map(
       (e) => Card(
         child: InkWell(
           onTap: () {
             Navigator.of(context)
-                .pushNamed('/account_details', arguments: e)
+                .pushNamed('/card_details', arguments: e)
                 .then(onBack);
           },
           child: Padding(
@@ -84,7 +82,7 @@ class _AccountListPageState extends State<AccountListPage> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
                             child: Image.network(
-                              e.bank?.imageUrl ?? "",
+                              e.brand?.imageUrl ?? "",
                               width: 50,
                               height: 50,
                               fit: BoxFit.fill,
@@ -95,7 +93,7 @@ class _AccountListPageState extends State<AccountListPage> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             SizedBox(
-                              width: 100,
+                              width: 150,
                               child: Text(
                                 e.name.toString(),
                                 style: const TextStyle(
@@ -103,9 +101,9 @@ class _AccountListPageState extends State<AccountListPage> {
                               ),
                             ),
                             SizedBox(
-                              width: 100,
+                              width: 150,
                               child: Text(
-                                e.bank!.name.toString(),
+                                e.brand!.name.toString(),
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w100),
                               ),
@@ -114,10 +112,20 @@ class _AccountListPageState extends State<AccountListPage> {
                         )
                       ],
                     ),
-                    Text(
-                      NumberFormat.simpleCurrency(locale: "pt-BR")
-                          .format(e.total),
-                      style: const TextStyle(fontWeight: FontWeight.w100),
+                    Column(
+                      children: [
+                        const Text(
+                          "Limite disponível",
+                          style: TextStyle(fontWeight: FontWeight.w100),
+                          textAlign: TextAlign.right,
+                        ),
+                        Text(
+                          NumberFormat.simpleCurrency(locale: "pt-BR")
+                              .format(e.availableLimit),
+                          style: const TextStyle(fontWeight: FontWeight.w100),
+                          textAlign: TextAlign.right,
+                        ),
+                      ],
                     ),
                   ],
                 )),

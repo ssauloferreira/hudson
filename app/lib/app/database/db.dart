@@ -27,18 +27,16 @@ class DB {
 
   _onCreate(db, version) async {
     await db.execute(_accountType);
+    await db.execute(_brand);
     await db.execute(_bank);
     await db.execute(_account);
     await db.execute(_card);
     await db.execute(_billing);
     await db.execute(_exchange);
 
-    await db.insert("bank", {
-      "name": "Santander",
-      "image_url":
-          "https://i.pinimg.com/originals/d7/96/dc/d796dcc6d450e585e28a550777211b0a.jpg"
-    });
-    // await db.execute(_insertAccountTypes);
+    await db.execute(_insertAccountTypes);
+    await db.execute(_insertBanks);
+    await db.execute(_insertBrands);
   }
 
   String get _bank => '''
@@ -72,16 +70,28 @@ class DB {
     );
   ''';
 
+  String get _brand => '''
+    CREATE TABLE brand (
+      id INTEGER PRIMARY KEY,
+      name TEXT NOT NULL,
+      image_url TEXT NOT NULL
+    );
+  ''';
+
   String get _card => '''
     CREATE TABLE card (
       id INTEGER PRIMARY KEY,
       name TEXT NOT NULL,
       bank_id INTEGER,
+      brand_id INTEGER,
       credit_limit REAL DEFAULT 0,
       billing_due_day INTEGER NOT NULL,
       billing_start_day INTEGER NOT NULL,
 
       FOREIGN KEY(bank_id) REFERENCES bank (id)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
+      FOREIGN KEY(brand_id) REFERENCES brand (id)
         ON DELETE CASCADE
         ON UPDATE NO ACTION
     );
@@ -90,12 +100,12 @@ class DB {
   String get _billing => '''
     CREATE TABLE billing (
       id INTEGER PRIMARY KEY,
-      day INTEGER NOT NULL,
       month INTEGER NOT NULL,
       year INTEGER NOT NULL,
       card_id INTEGER,
-      due_day INTEGER NOT NULL,
-      start_day INTEGER NOT NULL,
+      paid INTEGER NOT NULL,
+      billing_due_day INTEGER NOT NULL,
+      billing_start_day INTEGER NOT NULL,
 
       FOREIGN KEY(card_id) REFERENCES card (id)
         ON DELETE CASCADE
@@ -106,11 +116,13 @@ class DB {
   String get _exchange => '''
     CREATE TABLE exchange (
       id INTEGER PRIMARY KEY,
+      description TEXT NOT NULL,
       date INTEGER NOT NULL,
       value REAL NOT NULL,
-      type INTEGER,
+      payment_type TEXT NOT NULL,
+      movement_type INTEGER NOT NULL,
       billing_id INTEGER,
-      account_id id NOT NULL,
+      account_id INTEGER,
       
       FOREIGN KEY(account_id) REFERENCES account (id)
         ON DELETE CASCADE
@@ -121,14 +133,19 @@ class DB {
     );
   ''';
 
-  // String get _insertBanks => '''
-  //   INSERT INTO banks (name, image_url) VALUES ('Santander', 'https://i.pinimg.com/originals/d7/96/dc/d796dcc6d450e585e28a550777211b0a.jpg');
-  //   INSERT INTO banks (name, image_url) VALUES ('Itaú', 'https://apprecs.org/gp/images/app-icons/300/20/com.itau.jpg ');
-  // ''';
+  String get _insertBanks => '''
+    INSERT INTO bank (name, image_url) VALUES ('Santander', 'https://i.pinimg.com/originals/d7/96/dc/d796dcc6d450e585e28a550777211b0a.jpg');
+    INSERT INTO bank (name, image_url) VALUES ('Itaú', 'https://apprecs.org/gp/images/app-icons/300/20/com.itau.jpg');
+  ''';
 
-  // String get _insertAccountTypes => '''
-  //   INSERT INTO banks (name) VALUES ('Conta Corrente');
-  //   INSERT INTO banks (name) VALUES ('Conta de Pagamento');
-  //   INSERT INTO banks (name) VALUES ('Poupança');
-  // ''';
+  String get _insertBrands => '''
+    INSERT INTO brand (name, image_url) VALUES ('Mastercard', 'https://www.mastercard.com/content/dam/public/brandcenter/content-1.png');
+    INSERT INTO brand (name, image_url) VALUES ('Visa', 'https://logowik.com/content/uploads/images/857_visa.jpg');
+  ''';
+
+  String get _insertAccountTypes => '''
+    INSERT INTO account_type (name) VALUES ('Conta Corrente');
+    INSERT INTO account_type (name) VALUES ('Conta de Pagamento');
+    INSERT INTO account_type (name) VALUES ('Poupança');
+  ''';
 }

@@ -4,10 +4,15 @@ class AccountModel {
   late int? id;
   late String? name;
   late BankModel? bank;
-  late double? total;
+  late num? total;
   late AccountTypeModel? type;
 
   AccountModel({this.id, this.name, this.bank, this.total, this.type});
+
+  AccountModel clone() {
+    return AccountModel(
+        id: id, name: name, bank: bank, total: total, type: type);
+  }
 
   static AccountModel fromMap(Map<String, dynamic> account) {
     return AccountModel(
@@ -49,6 +54,14 @@ class AccountTypeModel {
       "name": name,
     };
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AccountTypeModel && id == other.id && name == other.name;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name);
 }
 
 class BankModel {
@@ -66,40 +79,12 @@ class BankModel {
   Map<String, dynamic> toMap() {
     return {"id": id, "name": name, "image_url": imageUrl};
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is BankModel && id == other.id && name == other.name;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name);
 }
-  // static List<AccountModel> getAccounts() {
-  //   return <AccountModel>[
-  //     AccountModel(
-  //       name: "Nubank PF",
-  //       bank: "Nubank",
-  //       total: 178.53,
-  //       type: "Conta-Corrente",
-  //       image:
-  //           "https://cdn4.vectorstock.com/i/1000x1000/32/23/bank-chalk-white-icon-on-black-background-vector-32173223.jpg",
-  //     ),
-  //     AccountModel(
-  //       name: "Nubank PJ",
-  //       bank: "Nubank",
-  //       total: 29871.51,
-  //       type: "Conta-Corrente",
-  //       image:
-  //           "https://cdn4.vectorstock.com/i/1000x1000/32/23/bank-chalk-white-icon-on-black-background-vector-32173223.jpg",
-  //     ),
-  //     AccountModel(
-  //       name: "Santander",
-  //       bank: "Santander",
-  //       total: 200.15,
-  //       type: "Conta-Corrente",
-  //       image:
-  //           "https://cdn4.vectorstock.com/i/1000x1000/32/23/bank-chalk-white-icon-on-black-background-vector-32173223.jpg",
-  //     ),
-  //     AccountModel(
-  //       name: "Poupança",
-  //       bank: "Santander",
-  //       total: 111.32,
-  //       type: "Conta-Poupança",
-  //       image:
-  //           "https://cdn4.vectorstock.com/i/1000x1000/32/23/bank-chalk-white-icon-on-black-background-vector-32173223.jpg",
-  //     ),
-  //   ];
-  // }

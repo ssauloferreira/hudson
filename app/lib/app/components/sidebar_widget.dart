@@ -40,13 +40,13 @@ class SidebarDrawer extends StatelessWidget {
             leading: Icon(Icons.wallet),
             title: Text('Conta'),
             subtitle: Text("Gerencie as suas contas"),
-            onTap: () => {Navigator.of(context).pushNamed('/account_details')},
+            onTap: () => {Navigator.of(context).pushNamed('/account_list')},
           ),
           ListTile(
             leading: Icon(Icons.credit_card),
             title: Text('Cartões'),
             subtitle: Text("Gerencie os seus cartões"),
-            onTap: () => {Navigator.of(context).pushNamed('/card')},
+            onTap: () => {Navigator.of(context).pushNamed('/card_list')},
           ),
           ListTile(
             leading: Icon(Icons.logout),
