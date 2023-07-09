@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/widgets.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -15,11 +18,14 @@ class DB {
   }
 
   _initDatabase() async {
-    sqfliteFfiInit();
-    databaseFactory = databaseFactoryFfi;
+    if (Platform.isWindows || Platform.isLinux) {
+      sqfliteFfiInit();
+      databaseFactory = databaseFactoryFfi;
+    }
+    WidgetsFlutterBinding.ensureInitialized();
     final dbPath = await getDatabasesPath();
     return await openDatabase(
-      join(dbPath, 'hudson.db'),
+      join(dbPath, 'hudson-0.1.1.db'),
       version: 1,
       onCreate: _onCreate,
     );
@@ -60,6 +66,7 @@ class DB {
       name TEXT NOT NULL,
       bank_id INTEGER NOT NULL,
       account_type_id INTEGER NOT NULL,
+      balance REAL NOT NULL DEFAULT 0,
 
       FOREIGN KEY(bank_id) REFERENCES bank (id)
         ON DELETE CASCADE

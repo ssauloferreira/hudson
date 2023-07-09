@@ -1,5 +1,4 @@
 import 'package:app/app/models/account_model.dart';
-import 'package:flutter/material.dart';
 
 class CardModel {
   late int? id;
@@ -64,6 +63,14 @@ class CardModel {
       "billing_start_day": billingStartDay,
     };
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is CardModel && id == other.id && name == other.name;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name);
 }
 
 class BrandModel {

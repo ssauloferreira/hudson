@@ -48,6 +48,7 @@ class _AccountListPageState extends State<AccountListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Contas"),
+        backgroundColor: Color.fromARGB(255, 210, 98, 98),
       ),
       body: Column(
         children: AccountCard(context).toList(),
@@ -116,7 +117,7 @@ class _AccountListPageState extends State<AccountListPage> {
                     ),
                     Text(
                       NumberFormat.simpleCurrency(locale: "pt-BR")
-                          .format(e.total),
+                          .format(e.balance),
                       style: const TextStyle(fontWeight: FontWeight.w100),
                     ),
                   ],

@@ -1,7 +1,8 @@
-import 'package:app/app/database/db.dart';
 import 'package:app/app/views/account_details_view.dart';
 import 'package:app/app/views/account_list_view.dart';
 import 'package:app/app/views/card_list_view.dart';
+import 'package:app/app/views/exchange_details_view.dart';
+import 'package:app/app/views/exchange_list_view.dart';
 import 'package:app/app/views/home_view.dart';
 import 'package:app/app/views/login_view.dart';
 import 'package:flutter/material.dart';
@@ -35,12 +36,14 @@ class MyApp extends StatelessWidget {
       // home: LoginPage(),
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginPage(),
-        '/home': (context) => HomePage(),
-        '/account_list': (context) => AccountListPage(),
-        '/account_details': (context) => AccountDetailsPage(),
-        '/card_list': (context) => CardListPage(),
-        '/card_details': (context) => CardDetailsPage(),
+        '/': (context) => const LoginPage(),
+        '/home': (context) => const HomePage(),
+        '/account_list': (context) => const AccountListPage(),
+        '/account_details': (context) => const AccountDetailsPage(),
+        '/card_list': (context) => const CardListPage(),
+        '/card_details': (context) => const CardDetailsPage(),
+        '/exchange_list': (context) => const ExchangeListPage(),
+        '/exchange_details': (context) => const ExchangeDetailsPage(),
       },
     );
   }

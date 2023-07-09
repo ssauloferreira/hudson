@@ -4,14 +4,14 @@ class AccountModel {
   late int? id;
   late String? name;
   late BankModel? bank;
-  late num? total;
+  late num? balance;
   late AccountTypeModel? type;
 
-  AccountModel({this.id, this.name, this.bank, this.total, this.type});
+  AccountModel({this.id, this.name, this.bank, this.balance, this.type});
 
   AccountModel clone() {
     return AccountModel(
-        id: id, name: name, bank: bank, total: total, type: type);
+        id: id, name: name, bank: bank, balance: balance, type: type);
   }
 
   static AccountModel fromMap(Map<String, dynamic> account) {
@@ -22,7 +22,7 @@ class AccountModel {
           id: account["bank_id"],
           name: account["bank_name"],
           imageUrl: account["bank_image"]),
-      total: account["total"],
+      balance: account["balance"],
       type:
           AccountTypeModel(id: account["type_id"], name: account["type_name"]),
     );
@@ -34,8 +34,17 @@ class AccountModel {
       "name": name,
       "bank_id": bank?.id,
       "account_type_id": type?.id,
+      "balance": balance
     };
   }
+
+  @override
+  bool operator ==(Object other) {
+    return other is AccountModel && id == other.id && name == other.name;
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name);
 }
 
 class AccountTypeModel {

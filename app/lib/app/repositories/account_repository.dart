@@ -17,8 +17,7 @@ class AccountRepository extends ChangeNotifier {
 
   String get _selectAccounts => '''
     SELECT a.id as id, a.name as name, b.name as bank_name, b.id as bank_id,
-      at.name as type_name, at.id as type_id, b.image_url as bank_image,
-      COALESCE( (SELECT SUM(value*movement_type) FROM exchange WHERE account_id = a.id),0) as total
+      at.name as type_name, at.id as type_id, b.image_url as bank_image, a.balance as balance
     FROM account a
     JOIN account_type at ON a.account_type_id = at.id
     JOIN bank b ON a.bank_id = b.id;

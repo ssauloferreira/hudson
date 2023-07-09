@@ -46,6 +46,7 @@ class _CardListPageState extends State<CardListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cartões"),
+        backgroundColor: Color.fromARGB(255, 210, 98, 98),
       ),
       body: Column(
         children: CardCard(context).toList(),

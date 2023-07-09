@@ -21,10 +21,17 @@ class _LoginPageState extends State<LoginPage> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                const Image(
+                  image: ResizeImage(
+                      AssetImage('assets/images/hudson-light-transparent.png'),
+                      width: 350,
+                      height: 350),
+                ),
+                SizedBox(height: 50),
                 TextField(
                   onChanged: (text) {
                     email = text;
@@ -32,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Email'),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 15),
                 TextField(
                   onChanged: (text) {
                     password = text;
@@ -43,10 +50,15 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: 15),
                 FilledButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed('/home');
-                    },
-                    child: Text('Entrar')),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        Color.fromARGB(255, 210, 98, 98)),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/home');
+                  },
+                  child: Text('Entrar'),
+                ),
               ],
             ),
           ),

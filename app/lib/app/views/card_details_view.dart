@@ -3,8 +3,6 @@ import 'package:app/app/models/account_model.dart';
 import 'package:app/app/models/card_model.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 
 import '../controllers/card_controller.dart';
@@ -27,8 +25,8 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
       "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_Blank.svg/2560px-Flag_Blank.svg.png";
   final cardController = CardController();
   final accountController = AccountController();
-  TextEditingController _textStartDayController = TextEditingController();
-  TextEditingController _textDueDayController = TextEditingController();
+  final TextEditingController _textStartDayController = TextEditingController();
+  final TextEditingController _textDueDayController = TextEditingController();
   final MoneyMaskedTextController _moneyMaskedController =
       MoneyMaskedTextController(
           decimalSeparator: ',', thousandSeparator: '.', leftSymbol: 'R\$');
@@ -96,6 +94,7 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
         title: card.id == null
             ? const Text("Cadastrar Cartão")
             : const Text("Editar Cartão"),
+        backgroundColor: Color.fromARGB(255, 210, 98, 98),
       ),
       body: SingleChildScrollView(
         child: SizedBox(

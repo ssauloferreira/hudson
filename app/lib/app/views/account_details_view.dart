@@ -75,8 +75,8 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
       oldAccount = account.clone();
     }
 
-    _moneyMaskedController.text = account.total != null
-        ? NumberFormat.simpleCurrency(locale: "pt-BR").format(account.total)
+    _moneyMaskedController.text = account.balance != null
+        ? NumberFormat.simpleCurrency(locale: "pt-BR").format(account.balance)
         : "";
   }
 
@@ -87,6 +87,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         title: account.id == null
             ? const Text("Cadastrar Conta")
             : const Text("Editar Conta"),
+        backgroundColor: Color.fromARGB(255, 210, 98, 98),
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -128,7 +129,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                         onChanged: (text) {
-                          account.total = _moneyMaskedController.numberValue;
+                          account.balance = _moneyMaskedController.numberValue;
                         },
                         controller: _moneyMaskedController,
                         keyboardType: TextInputType.number,
@@ -145,14 +146,14 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                           ? [
                               DropdownMenuItem<BankModel>(
                                 value: account.bank,
-                                child: Text(account.bank!.name ?? ""),
+                                child: Text(account.bank!.name!),
                               )
                             ]
                           : banks
                               .map(
                                 (e) => DropdownMenuItem<BankModel>(
                                   value: e,
-                                  child: Text(e.name ?? ""),
+                                  child: Text(e.name!),
                                 ),
                               )
                               .toList(),

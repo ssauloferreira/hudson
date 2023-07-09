@@ -1,4 +1,6 @@
 import 'package:app/app/components/sidebar_widget.dart';
+import 'package:app/app/views/exchange_list_view.dart';
+import 'package:app/app/views/feed_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -11,74 +13,59 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int currentPage = 0;
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: currentPage);
+  }
+
+  void setCurrentPage(int value) {
+    setState(() {
+      currentPage = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SidebarDrawer(),
       appBar: AppBar(
-        title: Text("Home"),
+        title: const Text("Home"),
+        backgroundColor: const Color.fromARGB(255, 210, 98, 98),
       ),
-      body: Column(
-        children: [
-          AccountCardWidget(),
-          CardCardWidget(),
+      drawer: SidebarDrawer(),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: setCurrentPage,
+        children: const [
+          FeedPage(),
+          ExchangeListPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        currentIndex: currentPage,
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Novo Registro',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.history),
-            label: 'Fatura',
+            label: 'Histórico',
           )
         ],
-      ),
-    );
-  }
-}
-
-class AccountCardWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).pushNamed('/account_list');
+        onTap: (value) {
+          _pageController.animateToPage(value,
+              duration: const Duration(microseconds: 400), curve: Curves.ease);
         },
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Text("Minhas contas"),
-          ),
-        ),
       ),
-    );
-  }
-}
-
-class CardCardWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          Navigator.of(context).pushNamed('/card_list');
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          Navigator.of(context).pushNamed('/exchange_details');
         },
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Text("Meus cartões"),
-          ),
-        ),
       ),
     );
   }
