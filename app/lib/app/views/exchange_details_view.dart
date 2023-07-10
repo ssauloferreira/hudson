@@ -37,8 +37,7 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
   final TextEditingController _textStartDayController = TextEditingController();
   final TextEditingController _textDueDayController = TextEditingController();
   final MoneyMaskedTextController _moneyMaskedController =
-      MoneyMaskedTextController(
-          decimalSeparator: ',', thousandSeparator: '.', leftSymbol: 'R\$');
+      MoneyMaskedTextController(decimalSeparator: ',', thousandSeparator: '.', leftSymbol: 'R\$');
   final TextEditingController _dateInputController = TextEditingController();
 
   @override
@@ -85,28 +84,23 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
     } else {
       selectedAccount = data.account;
       selectedCard = data.billing != null ? data.billing!.card : null;
-      selectedPaymentMethodModel = data.billing != null
-          ? paymentMethod.CREDIT_CARD["key"]
-          : paymentMethod.DEBIT_CARD["key"];
+      selectedPaymentMethodModel =
+          data.billing != null ? paymentMethod.CREDIT_CARD["key"] : paymentMethod.DEBIT_CARD["key"];
       movementTypeInitialValue = data.movementType! > 0 ? 1 : 0;
       exchange = data;
       oldExchange = exchange.clone();
-      _dateInputController.text =
-          DateFormat("dd/MM/yyyy").format(exchange.date!);
+      _dateInputController.text = DateFormat("dd/MM/yyyy").format(exchange.date!);
     }
 
-    _moneyMaskedController.text = exchange.value != null
-        ? NumberFormat.simpleCurrency(locale: "pt-BR").format(exchange.value)
-        : "";
+    _moneyMaskedController.text =
+        exchange.value != null ? NumberFormat.simpleCurrency(locale: "pt-BR").format(exchange.value) : "";
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: exchange.id == null
-            ? const Text("Cadastrar Transação")
-            : const Text("Editar Transação"),
+        title: exchange.id == null ? const Text("Cadastrar Transação") : const Text("Editar Transação"),
         backgroundColor: const Color.fromARGB(255, 210, 98, 98),
       ),
       body: SingleChildScrollView(
@@ -145,9 +139,7 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
                           child: Text(paymentMethod.DEBIT_CARD["value"]),
                         ),
                       ],
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Método de Pagamento'),
+                      decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Método de Pagamento'),
                       onChanged: (value) {
                         setState(
                           () {
@@ -167,19 +159,15 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
                                 ? [
                                     DropdownMenuItem<CardModel>(
                                       value: exchange.billing!.card,
-                                      child: Text(
-                                          exchange.billing!.card!.name ?? ""),
+                                      child: Text(exchange.billing!.card!.name ?? ""),
                                     )
                                   ]
                                 : cards
                                     .map(
-                                      (e) => DropdownMenuItem<CardModel>(
-                                          value: e, child: Text(e.name ?? "")),
+                                      (e) => DropdownMenuItem<CardModel>(value: e, child: Text(e.name ?? "")),
                                     )
                                     .toList(),
-                            decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Cartão'),
+                            decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Cartão'),
                             onChanged: (value) {
                               setState(
                                 () {
@@ -189,8 +177,7 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
                             },
                           ),
                         )
-                      : selectedPaymentMethodModel ==
-                              paymentMethod.DEBIT_CARD["key"]
+                      : selectedPaymentMethodModel == paymentMethod.DEBIT_CARD["key"]
                           ? Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: DropdownButtonFormField<AccountModel>(
@@ -199,20 +186,15 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
                                     ? [
                                         DropdownMenuItem<AccountModel>(
                                           value: exchange.account,
-                                          child: Text(
-                                              exchange.account!.name ?? ""),
+                                          child: Text(exchange.account!.name ?? ""),
                                         )
                                       ]
                                     : accounts
                                         .map(
-                                          (e) => DropdownMenuItem<AccountModel>(
-                                              value: e,
-                                              child: Text(e.name ?? "")),
+                                          (e) => DropdownMenuItem<AccountModel>(value: e, child: Text(e.name ?? "")),
                                         )
                                         .toList(),
-                                decoration: const InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    labelText: 'Conta'),
+                                decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Conta'),
                                 onChanged: (value) {
                                   setState(
                                     () {
@@ -256,11 +238,9 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
                             lastDate: DateTime(2100));
 
                         if (pickedDate != null) {
-                          String formattedDate =
-                              DateFormat('dd/MM/yyyy').format(pickedDate);
+                          String formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
                           setState(() {
-                            _dateInputController.text =
-                                formattedDate; //set output date to TextField value.
+                            _dateInputController.text = formattedDate; //set output date to TextField value.
                             exchange.date = pickedDate;
                           });
                         } else {}
@@ -278,18 +258,13 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
                       inactiveFgColor: Colors.white,
                       totalSwitches: 2,
                       labels: const ['Despesa', 'Receita'],
-                      icons: const [
-                        Icons.arrow_downward_rounded,
-                        Icons.arrow_upward_rounded
-                      ],
+                      icons: const [Icons.arrow_downward_rounded, Icons.arrow_upward_rounded],
                       activeBgColors: const [
                         [Colors.red],
                         [Colors.green],
                       ],
                       onToggle: (index) {
-                        exchange.movementType = index == 0
-                            ? movementTypeModel.EXPENSE
-                            : movementTypeModel.INCOME;
+                        exchange.movementType = index == 0 ? movementTypeModel.EXPENSE : movementTypeModel.INCOME;
                       },
                     ),
                   ),
@@ -306,19 +281,14 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
               selectedCard: selectedCard,
             )
           : CreateFloatingActionWidget(
-              exchange: exchange,
-              exchangeController: exchangeController,
-              selectedCard: selectedCard),
+              exchange: exchange, exchangeController: exchangeController, selectedCard: selectedCard),
     );
   }
 }
 
 class UpdateFloatingActionWidget extends StatelessWidget {
   const UpdateFloatingActionWidget(
-      {super.key,
-      required this.exchange,
-      required this.exchangeController,
-      required this.selectedCard});
+      {super.key, required this.exchange, required this.exchangeController, required this.selectedCard});
 
   final ExchangeModel exchange;
   final ExchangeController exchangeController;
@@ -364,10 +334,7 @@ class UpdateFloatingActionWidget extends StatelessWidget {
 
 class CreateFloatingActionWidget extends StatelessWidget {
   const CreateFloatingActionWidget(
-      {super.key,
-      required this.exchange,
-      required this.exchangeController,
-      required this.selectedCard});
+      {super.key, required this.exchange, required this.exchangeController, required this.selectedCard});
 
   final ExchangeModel exchange;
   final ExchangeController exchangeController;
@@ -381,7 +348,7 @@ class CreateFloatingActionWidget extends StatelessWidget {
         FloatingActionButton(
             child: const Icon(Icons.save),
             onPressed: () {
-              exchangeController.createExchange(exchange, selectedCard!);
+              exchangeController.createExchange(exchange, selectedCard);
               Navigator.of(context).pop();
             }),
       ],

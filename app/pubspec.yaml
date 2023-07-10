@@ -41,6 +41,7 @@ dependencies:
   quiver: ^3.2.1
   sqflite_common_ffi: ^2.2.5
   toggle_switch: ^2.1.0
+  calendar_view: ^1.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:app/app/components/sidebar_widget.dart';
 import 'package:app/app/views/exchange_list_view.dart';
 import 'package:app/app/views/feed_view.dart';
+import 'package:app/app/views/report_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -39,10 +40,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: _pageController,
         onPageChanged: setCurrentPage,
-        children: const [
-          FeedPage(),
-          ExchangeListPage(),
-        ],
+        children: const [FeedPage(), ExchangeListPage(), ReportPage()],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPage,
@@ -54,6 +52,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'Histórico',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.analytics),
+            label: 'Relatório',
           )
         ],
         onTap: (value) {

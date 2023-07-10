@@ -8,6 +8,7 @@ import 'package:app/app/views/login_view.dart';
 import 'package:flutter/material.dart';
 
 import 'app/views/card_details_view.dart';
+import 'app/views/report_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/card_details': (context) => const CardDetailsPage(),
         '/exchange_list': (context) => const ExchangeListPage(),
         '/exchange_details': (context) => const ExchangeDetailsPage(),
+        '/report': (context) => const ReportPage(),
       },
     );
   }

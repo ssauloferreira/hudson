@@ -58,4 +58,12 @@ class ExchangeRepository extends ChangeNotifier {
     final List<Map<String, dynamic>> data = await db.rawQuery(_selectExchanges);
     return List.generate(data.length, (i) => ExchangeModel.fromMap(data[i]));
   }
+
+  Future<List<ExchangeModel>> getExchangesByFilters(
+      String where, List whereArgs) async {
+    db = await DB.instance.database;
+    final List<Map<String, dynamic>> data =
+        await db.query("exchange", where: where, whereArgs: whereArgs);
+    return List.generate(data.length, (i) => ExchangeModel.fromMap(data[i]));
+  }
 }
