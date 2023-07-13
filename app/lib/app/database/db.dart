@@ -24,25 +24,26 @@ class DB {
     }
     WidgetsFlutterBinding.ensureInitialized();
     final dbPath = await getDatabasesPath();
-    return await openDatabase(
+    return openDatabase(
       join(dbPath, 'hudson-0.1.1.db'),
       version: 1,
       onCreate: _onCreate,
     );
   }
 
-  _onCreate(db, version) async {
-    await db.execute(_accountType);
-    await db.execute(_brand);
-    await db.execute(_bank);
-    await db.execute(_account);
-    await db.execute(_card);
-    await db.execute(_billing);
-    await db.execute(_exchange);
+  _onCreate(db, version) {
+    db.execute(_accountType);
+    db.execute(_brand);
+    db.execute(_bank);
+    db.execute(_account);
+    db.execute(_card);
+    db.execute(_billing);
+    db.execute(_exchange);
 
-    await db.execute(_insertAccountTypes);
-    await db.execute(_insertBanks);
-    await db.execute(_insertBrands);
+    db.execute(_insertAccountTypes);
+    db.execute(_insertBanks);
+    db.execute(_insertBrands);
+    db.execute(_insertDefaultData);
   }
 
   String get _bank => '''
@@ -154,5 +155,26 @@ class DB {
     INSERT INTO account_type (name) VALUES ('Conta Corrente');
     INSERT INTO account_type (name) VALUES ('Conta de Pagamento');
     INSERT INTO account_type (name) VALUES ('Poupança');
+  ''';
+
+  String get _insertDefaultData => '''
+    INSERT INTO "main"."account" ("id", "name", "bank_id", "account_type_id", "balance") VALUES ('1', 'Minha poupança', '1', '1', '111.13');
+
+    INSERT INTO "main"."card" ("id", "name", "bank_id", "brand_id", "credit_limit", "billing_due_day", "billing_start_day") VALUES ('1', 'Uniclass Platinum', '1', '2', '1100.0', '5', '28');
+
+    INSERT INTO "main"."billing" ("id", "month", "year", "card_id", "paid", "billing_due_day", "billing_start_day") VALUES ('1', '6', '2023', '1', '0', '1', '12');
+    INSERT INTO "main"."billing" ("id", "month", "year", "card_id", "paid", "billing_due_day", "billing_start_day") VALUES ('2', '7', '2023', '1', '0', '5', '28');
+
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('1', 'Compra genérica', '1234', '135.0', 'DEBIT', '-1', '1', '1');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('2', 'Teste 2', '1688007600000', '120.09', 'DEBIT', '-1', '1', '1');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('3', 'Salário', '1685588400000', '1500.0', 'DEBIT', '1', '', '1');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('4', 'Outro gasto', '1662433200000', '90.87', 'DEBIT', '-1', '', '1');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('5', 'Teste 23', '1685674800000', '12.22', 'CREDIT', '-1', '1', '');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('6', 'aa', '1685847600000', '1212.12', 'CREDIT', '-1', '2', '');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('7', 'Teste 1', '1688353200000', '122.22', 'DEBIT', '-1', '', '1');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('8', 'Teste 2', '1688353200000', '10000.0', 'DEBIT', '-1', '', '1');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('9', 'Teste 3', '1688526000000', '19.0', 'DEBIT', '-1', '', '1');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('10', 'drdrdr', '1688526000000', '10.0', 'DEBIT', '-1', '', '1');
+    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('11', 'bhubub', '1688526000000', '30.0', 'DEBIT', '1', '', '1');
   ''';
 }

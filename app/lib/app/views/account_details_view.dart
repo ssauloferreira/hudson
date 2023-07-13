@@ -26,8 +26,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
 
   final accountController = AccountController();
   final MoneyMaskedTextController _moneyMaskedController =
-      MoneyMaskedTextController(
-          decimalSeparator: ',', thousandSeparator: '.', leftSymbol: 'R\$');
+      MoneyMaskedTextController(decimalSeparator: ',', thousandSeparator: '.', leftSymbol: 'R\$');
 
   @override
   void initState() {
@@ -75,19 +74,16 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
       oldAccount = account.clone();
     }
 
-    _moneyMaskedController.text = account.balance != null
-        ? NumberFormat.simpleCurrency(locale: "pt-BR").format(account.balance)
-        : "";
+    _moneyMaskedController.text =
+        account.balance != null ? NumberFormat.simpleCurrency(locale: "pt-BR").format(account.balance) : "";
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: account.id == null
-            ? const Text("Cadastrar Conta")
-            : const Text("Editar Conta"),
-        backgroundColor: Color.fromARGB(255, 210, 98, 98),
+        title: account.id == null ? const Text("Cadastrar Conta") : const Text("Editar Conta"),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -157,9 +153,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                                 ),
                               )
                               .toList(),
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Instituição'),
+                      decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Instituição'),
                       onChanged: (bank) {
                         setState(
                           () {
@@ -182,13 +176,10 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                             ]
                           : accountTypes
                               .map(
-                                (e) => DropdownMenuItem<AccountTypeModel>(
-                                    value: e, child: Text(e.name ?? "")),
+                                (e) => DropdownMenuItem<AccountTypeModel>(value: e, child: Text(e.name ?? "")),
                               )
                               .toList(),
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Tipo de conta'),
+                      decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Tipo de conta'),
                       onChanged: (accounType) {
                         setState(
                           () {
@@ -206,10 +197,8 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
         ),
       ),
       floatingActionButton: account.id != null
-          ? UpdateFloatingActionWidget(
-              account: account, accountController: accountController)
-          : CreateFloatingActionWidget(
-              account: account, accountController: accountController),
+          ? UpdateFloatingActionWidget(account: account, accountController: accountController)
+          : CreateFloatingActionWidget(account: account, accountController: accountController),
     );
   }
 }
@@ -239,8 +228,7 @@ class UpdateFloatingActionWidget extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   title: const Text('Tem certeza disso?'),
-                  content: const Text(
-                      'Todas as transações associados a esta conta serão apagados.'),
+                  content: const Text('Todas as transações associados a esta conta serão apagados.'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {

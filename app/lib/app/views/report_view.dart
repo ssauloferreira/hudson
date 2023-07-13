@@ -13,11 +13,59 @@ class ReportPage extends StatefulWidget {
   State<ReportPage> createState() => _ReportPageState();
 }
 
-class _ReportPageState extends State<ReportPage> {
+class _ReportPageState extends State<ReportPage> with TickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    // final TabController _tabController = TabController(length: 3, vsync: this);
+
+    return Scaffold(
+      body: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          body: NestedScrollView(
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                SliverAppBar(
+                  backgroundColor: Colors.white.withOpacity(0.5),
+                  pinned: true,
+                  floating: true,
+                  bottom: const TabBar(
+                    isScrollable: true,
+                    tabs: [
+                      Tab(child: Text('Calendário de gastos', style: TextStyle(color: Colors.black))),
+                      Tab(child: Text('Gráfico mensal', style: TextStyle(color: Colors.black))),
+                    ],
+                  ),
+                ),
+              ];
+            },
+            body: const TabBarView(
+              children: <Widget>[
+                CalendarPage(),
+                Icon(Icons.directions_transit, size: 350),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CalendarPage extends StatefulWidget {
+  const CalendarPage({super.key});
+
+  @override
+  State<CalendarPage> createState() => _CalendarPageState();
+}
+
+class _CalendarPageState extends State<CalendarPage> {
   DateTime _date = DateTime.now();
-  EventController _eventController = EventController();
+  final EventController _eventController = EventController();
   final exchangeController = ExchangeController();
   late Map groupedExchanges = {};
+
+  final List weekLetter = ["D", "S", "T", "Q", "Q", "S", "S"];
 
   @override
   void initState() {
@@ -38,14 +86,27 @@ class _ReportPageState extends State<ReportPage> {
 
     if (groupedExchanges.isNotEmpty) {
       for (var e in groupedExchanges.entries) {
-        events.add(CalendarEventData(
-            date: e.value["date"],
-            event: e.value["value"].toString(),
-            title: NumberFormat.simpleCurrency(locale: "pt-BR").format(e.value["value"]),
-            description: "aaaa",
-            startTime: DateTime(e.value["date"].year, e.value["date"].month, e.value["date"].day, 0, 0),
-            endTime: DateTime(e.value["date"].year, e.value["date"].month, e.value["date"].day, 0, 0),
-            color: e.value["value"] < 0 ? Colors.red : Colors.blue));
+        if (e.value["expense"] > 0) {
+          events.add(CalendarEventData(
+              date: e.value["date"],
+              event: e.value["expense"].toString(),
+              title: NumberFormat.simpleCurrency(locale: "pt-BR").format(e.value["expense"]),
+              description: "aaaa",
+              startTime: DateTime(e.value["date"].year, e.value["date"].month, e.value["date"].day, 0, 0),
+              endTime: DateTime(e.value["date"].year, e.value["date"].month, e.value["date"].day, 0, 0),
+              color: Colors.red));
+        }
+
+        if (e.value["income"] > 0) {
+          events.add(CalendarEventData(
+              date: e.value["date"],
+              event: e.value["income"].toString(),
+              title: NumberFormat.simpleCurrency(locale: "pt-BR").format(e.value["income"]),
+              description: "aaaa",
+              startTime: DateTime(e.value["date"].year, e.value["date"].month, e.value["date"].day, 0, 0),
+              endTime: DateTime(e.value["date"].year, e.value["date"].month, e.value["date"].day, 0, 0),
+              color: Colors.green));
+        }
       }
     }
 
@@ -56,31 +117,35 @@ class _ReportPageState extends State<ReportPage> {
     return await exchangeController.getGroupedExchangesByMonth(_date.month, _date.year);
   }
 
+  String getWeekDay(int i) {
+    print(weekLetter[i]);
+    return weekLetter[i];
+  }
+
   @override
   Widget build(BuildContext context) {
-    return CalendarControllerProvider(
-      controller: _eventController..addAll(getEvents()),
-      child: MaterialApp(
-        home: Scaffold(body: MonthView(
-          onPageChange: (date, pageIndex) {
-            setState(() {
-              _date = date;
-              refreshData();
-            });
-          },
-        )),
+    return Padding(
+      padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
+      child: CalendarControllerProvider(
+        controller: _eventController..addAll(getEvents()),
+        child: MaterialApp(
+          home: Scaffold(
+            body: MonthView(
+              headerStyle: HeaderStyle(decoration: BoxDecoration(color: Colors.white.withOpacity(0.5))),
+              showBorder: true,
+              borderColor: Colors.transparent,
+              cellAspectRatio: 0.8,
+              weekDayStringBuilder: getWeekDay,
+              onPageChange: (date, pageIndex) {
+                setState(() {
+                  _date = date;
+                  refreshData();
+                });
+              },
+            ),
+          ),
+        ),
       ),
     );
   }
 }
-
-// [
-//   CalendarEventData(
-//     date: _now,
-//     event: "Joe's Birthday",
-//     title: "Project meeting",
-//     description: "Today is project meeting.",
-//     startTime: DateTime(_now.year, _now.month, _now.day, 18, 30),
-//     endTime: DateTime(_now.year, _now.month, _now.day, 22),
-//   )
-// ]

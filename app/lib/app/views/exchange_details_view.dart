@@ -101,7 +101,7 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
     return Scaffold(
       appBar: AppBar(
         title: exchange.id == null ? const Text("Cadastrar Transação") : const Text("Editar Transação"),
-        backgroundColor: const Color.fromARGB(255, 210, 98, 98),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: SingleChildScrollView(
         child: SizedBox(

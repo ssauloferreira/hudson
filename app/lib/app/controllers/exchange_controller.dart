@@ -46,9 +46,12 @@ class ExchangeController {
     for (var element in exchanges) {
       String key = element.date!.toString();
       if (groupedExchanges[key] == null) {
-        groupedExchanges[key] = {"date": element.date, "value": element.value! * element.movementType!};
+        groupedExchanges[key] = {"date": element.date, "income": 0, "expense": 0};
+      }
+      if (element.movementType == 1) {
+        groupedExchanges[key]["income"] += element.value!;
       } else {
-        groupedExchanges[key]["value"] += element.value! * element.movementType!;
+        groupedExchanges[key]["expense"] += element.value!;
       }
     }
 

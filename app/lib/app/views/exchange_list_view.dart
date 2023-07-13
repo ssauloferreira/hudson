@@ -44,7 +44,7 @@ class _ExchangeListPageState extends State<ExchangeListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: ExchangeCard(context).toList(),
       ),
     );
@@ -55,9 +55,7 @@ class _ExchangeListPageState extends State<ExchangeListPage> {
       (e) => Card(
         child: InkWell(
           onTap: () {
-            Navigator.of(context)
-                .pushNamed('/exchange_details', arguments: e)
-                .then(onBack);
+            Navigator.of(context).pushNamed('/exchange_details', arguments: e).then(onBack);
           },
           child: Padding(
             padding: const EdgeInsets.all(10),
@@ -86,26 +84,21 @@ class _ExchangeListPageState extends State<ExchangeListPage> {
                               width: 150,
                               child: Text(
                                 e.description.toString(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                             SizedBox(
                               width: 150,
                               child: Text(
-                                e.account != null
-                                    ? e.account!.name ?? ""
-                                    : e.billing!.card!.name ?? "",
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w100),
+                                e.account != null ? e.account!.name ?? "" : e.billing!.card!.name ?? "",
+                                style: const TextStyle(fontWeight: FontWeight.w100),
                               ),
                             ),
                             SizedBox(
                               width: 150,
                               child: Text(
                                 DateFormat('dd/MM/yyyy').format(e.date!),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w100),
+                                style: const TextStyle(fontWeight: FontWeight.w100),
                               ),
                             )
                           ],
@@ -113,8 +106,7 @@ class _ExchangeListPageState extends State<ExchangeListPage> {
                       ],
                     ),
                     Text(
-                      NumberFormat.simpleCurrency(locale: "pt-BR")
-                          .format(e.value),
+                      NumberFormat.simpleCurrency(locale: "pt-BR").format(e.value),
                       style: const TextStyle(fontWeight: FontWeight.w100),
                       textAlign: TextAlign.right,
                     ),

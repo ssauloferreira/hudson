@@ -46,9 +46,9 @@ class _CardListPageState extends State<CardListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cartões"),
-        backgroundColor: Color.fromARGB(255, 210, 98, 98),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Column(
+      body: ListView(
         children: CardCard(context).toList(),
       ),
       floatingActionButton: FloatingActionButton(
@@ -65,9 +65,7 @@ class _CardListPageState extends State<CardListPage> {
       (e) => Card(
         child: InkWell(
           onTap: () {
-            Navigator.of(context)
-                .pushNamed('/card_details', arguments: e)
-                .then(onBack);
+            Navigator.of(context).pushNamed('/card_details', arguments: e).then(onBack);
           },
           child: Padding(
             padding: const EdgeInsets.all(10),
@@ -97,16 +95,14 @@ class _CardListPageState extends State<CardListPage> {
                               width: 150,
                               child: Text(
                                 e.name.toString(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                             SizedBox(
                               width: 150,
                               child: Text(
                                 e.brand!.name.toString(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w100),
+                                style: const TextStyle(fontWeight: FontWeight.w100),
                               ),
                             ),
                           ],
@@ -121,8 +117,7 @@ class _CardListPageState extends State<CardListPage> {
                           textAlign: TextAlign.right,
                         ),
                         Text(
-                          NumberFormat.simpleCurrency(locale: "pt-BR")
-                              .format(e.availableLimit),
+                          NumberFormat.simpleCurrency(locale: "pt-BR").format(e.availableLimit),
                           style: const TextStyle(fontWeight: FontWeight.w100),
                           textAlign: TextAlign.right,
                         ),

@@ -28,8 +28,7 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
   final TextEditingController _textStartDayController = TextEditingController();
   final TextEditingController _textDueDayController = TextEditingController();
   final MoneyMaskedTextController _moneyMaskedController =
-      MoneyMaskedTextController(
-          decimalSeparator: ',', thousandSeparator: '.', leftSymbol: 'R\$');
+      MoneyMaskedTextController(decimalSeparator: ',', thousandSeparator: '.', leftSymbol: 'R\$');
 
   @override
   void initState() {
@@ -78,23 +77,18 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
       oldCard = card.clone();
     }
 
-    _moneyMaskedController.text = card.creditLimit != null
-        ? NumberFormat.simpleCurrency(locale: "pt-BR").format(card.creditLimit)
-        : "";
-    _textStartDayController.text =
-        card.billingStartDay != null ? card.billingStartDay.toString() : "1";
-    _textDueDayController.text =
-        card.billingDueDay != null ? card.billingDueDay.toString() : "1";
+    _moneyMaskedController.text =
+        card.creditLimit != null ? NumberFormat.simpleCurrency(locale: "pt-BR").format(card.creditLimit) : "";
+    _textStartDayController.text = card.billingStartDay != null ? card.billingStartDay.toString() : "1";
+    _textDueDayController.text = card.billingDueDay != null ? card.billingDueDay.toString() : "1";
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: card.id == null
-            ? const Text("Cadastrar Cartão")
-            : const Text("Editar Cartão"),
-        backgroundColor: Color.fromARGB(255, 210, 98, 98),
+        title: card.id == null ? const Text("Cadastrar Cartão") : const Text("Editar Cartão"),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -107,9 +101,7 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
                 children: [
                   ImageIconWidget(card: card, defaultImageUrl: defaultImageUrl),
                   NameInputWidget(card: card),
-                  LimitInputWidget(
-                      card: card,
-                      moneyMaskedController: _moneyMaskedController),
+                  LimitInputWidget(card: card, moneyMaskedController: _moneyMaskedController),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: DropdownButtonFormField<BankModel>(
@@ -129,9 +121,7 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
                                 ),
                               )
                               .toList(),
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'Instituição'),
+                      decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Instituição'),
                       onChanged: (bank) {
                         setState(
                           () {
@@ -154,12 +144,10 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
                             ]
                           : brands
                               .map(
-                                (e) => DropdownMenuItem<BrandModel>(
-                                    value: e, child: Text(e.name ?? "")),
+                                (e) => DropdownMenuItem<BrandModel>(value: e, child: Text(e.name ?? "")),
                               )
                               .toList(),
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(), labelText: 'Bandeira'),
+                      decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Bandeira'),
                       onChanged: (accounType) {
                         setState(
                           () {
@@ -204,10 +192,8 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
         ),
       ),
       floatingActionButton: card.id != null
-          ? UpdateFloatingActionWidget(
-              card: card, cardController: cardController)
-          : CreateFloatingActionWidget(
-              card: card, cardController: cardController),
+          ? UpdateFloatingActionWidget(card: card, cardController: cardController)
+          : CreateFloatingActionWidget(card: card, cardController: cardController),
     );
   }
 }
@@ -320,8 +306,7 @@ class UpdateFloatingActionWidget extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   title: const Text('Tem certeza disso?'),
-                  content: const Text(
-                      'Todas as transações associadas a este cartão serão apagados.'),
+                  content: const Text('Todas as transações associadas a este cartão serão apagados.'),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {
@@ -356,8 +341,7 @@ class UpdateFloatingActionWidget extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
                     title: const Text('Confirmar alteração?'),
-                    content: const Text(
-                        'Atualizar o limite impactará no valor de limite disponível.'),
+                    content: const Text('Atualizar o limite impactará no valor de limite disponível.'),
                     actions: <Widget>[
                       TextButton(
                         onPressed: () {

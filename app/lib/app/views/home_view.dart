@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
-        backgroundColor: const Color.fromARGB(255, 210, 98, 98),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       drawer: SidebarDrawer(),
       body: PageView(
@@ -59,8 +59,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
         onTap: (value) {
-          _pageController.animateToPage(value,
-              duration: const Duration(microseconds: 400), curve: Curves.ease);
+          _pageController.animateToPage(value, duration: const Duration(microseconds: 400), curve: Curves.ease);
         },
       ),
       floatingActionButton: FloatingActionButton(

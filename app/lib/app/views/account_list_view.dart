@@ -48,9 +48,9 @@ class _AccountListPageState extends State<AccountListPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Contas"),
-        backgroundColor: Color.fromARGB(255, 210, 98, 98),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: Column(
+      body: ListView(
         children: AccountCard(context).toList(),
       ),
       floatingActionButton: FloatingActionButton(
@@ -67,9 +67,7 @@ class _AccountListPageState extends State<AccountListPage> {
       (e) => Card(
         child: InkWell(
           onTap: () {
-            Navigator.of(context)
-                .pushNamed('/account_details', arguments: e)
-                .then(onBack);
+            Navigator.of(context).pushNamed('/account_details', arguments: e).then(onBack);
           },
           child: Padding(
             padding: const EdgeInsets.all(10),
@@ -99,16 +97,14 @@ class _AccountListPageState extends State<AccountListPage> {
                               width: 100,
                               child: Text(
                                 e.name.toString(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                             SizedBox(
                               width: 100,
                               child: Text(
                                 e.bank!.name.toString(),
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w100),
+                                style: const TextStyle(fontWeight: FontWeight.w100),
                               ),
                             ),
                           ],
@@ -116,8 +112,7 @@ class _AccountListPageState extends State<AccountListPage> {
                       ],
                     ),
                     Text(
-                      NumberFormat.simpleCurrency(locale: "pt-BR")
-                          .format(e.balance),
+                      NumberFormat.simpleCurrency(locale: "pt-BR").format(e.balance),
                       style: const TextStyle(fontWeight: FontWeight.w100),
                     ),
                   ],
