@@ -1,7 +1,7 @@
-import 'package:app/app/components/sidebar_widget.dart';
-import 'package:app/app/views/exchange_list_view.dart';
-import 'package:app/app/views/feed_view.dart';
-import 'package:app/app/views/report_view.dart';
+import 'package:hudson/app/components/sidebar_widget.dart';
+import 'package:hudson/app/views/exchange_list_view.dart';
+import 'package:hudson/app/views/feed_view.dart';
+import 'package:hudson/app/views/report_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';

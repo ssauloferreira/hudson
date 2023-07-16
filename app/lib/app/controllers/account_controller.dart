@@ -1,5 +1,5 @@
-import 'package:app/app/models/account_model.dart';
-import 'package:app/app/repositories/account_repository.dart';
+import 'package:hudson/app/models/account_model.dart';
+import 'package:hudson/app/repositories/account_repository.dart';
 
 class AccountController {
   late AccountRepository repository;

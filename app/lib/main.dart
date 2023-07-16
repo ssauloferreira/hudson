@@ -1,10 +1,10 @@
-import 'package:app/app/views/account_details_view.dart';
-import 'package:app/app/views/account_list_view.dart';
-import 'package:app/app/views/card_list_view.dart';
-import 'package:app/app/views/exchange_details_view.dart';
-import 'package:app/app/views/exchange_list_view.dart';
-import 'package:app/app/views/home_view.dart';
-import 'package:app/app/views/login_view.dart';
+import 'package:hudson/app/views/account_details_view.dart';
+import 'package:hudson/app/views/account_list_view.dart';
+import 'package:hudson/app/views/card_list_view.dart';
+import 'package:hudson/app/views/exchange_details_view.dart';
+import 'package:hudson/app/views/exchange_list_view.dart';
+import 'package:hudson/app/views/home_view.dart';
+import 'package:hudson/app/views/login_view.dart';
 import 'package:flutter/material.dart';
 
 import 'app/views/card_details_view.dart';

@@ -1,5 +1,5 @@
-import 'package:app/app/database/db.dart';
-import 'package:app/app/models/exchange_model.dart';
+import 'package:hudson/app/database/db.dart';
+import 'package:hudson/app/models/exchange_model.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 

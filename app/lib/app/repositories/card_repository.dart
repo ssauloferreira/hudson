@@ -1,4 +1,4 @@
-import 'package:app/app/models/card_model.dart';
+import 'package:hudson/app/models/card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 

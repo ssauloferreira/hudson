@@ -1,4 +1,4 @@
-import 'package:app/app/models/account_model.dart';
+import 'package:hudson/app/models/account_model.dart';
 
 class CardModel {
   late int? id;
@@ -37,15 +37,9 @@ class CardModel {
         id: card["id"],
         name: card["name"],
         bank: card["bank_id"] != null
-            ? BankModel(
-                id: card["bank_id"],
-                name: card["bank_name"],
-                imageUrl: card["bank_image"])
+            ? BankModel(id: card["bank_id"], name: card["bank_name"], imageUrl: card["bank_image"])
             : null,
-        brand: BrandModel(
-            id: card["brand_id"],
-            name: card["brand_name"],
-            imageUrl: card["brand_image"]),
+        brand: BrandModel(id: card["brand_id"], name: card["brand_name"], imageUrl: card["brand_image"]),
         creditLimit: card["credit_limit"],
         billingDueDay: card["billing_due_day"],
         billingStartDay: card["billing_start_day"],
@@ -81,8 +75,7 @@ class BrandModel {
   BrandModel({required this.id, this.name, this.imageUrl});
 
   static BrandModel fromMap(Map<String, dynamic> bank) {
-    return BrandModel(
-        id: bank["id"], name: bank["name"], imageUrl: bank["image_url"]);
+    return BrandModel(id: bank["id"], name: bank["name"], imageUrl: bank["image_url"]);
   }
 
   Map<String, dynamic> toMap() {

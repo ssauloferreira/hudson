@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:app/app/controllers/exchange_controller.dart';
+import 'package:hudson/app/controllers/exchange_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';

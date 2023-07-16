@@ -1,6 +1,6 @@
-import 'package:app/app/models/account_model.dart';
-import 'package:app/app/models/billing_model.dart';
-import 'package:app/app/models/card_model.dart';
+import 'package:hudson/app/models/account_model.dart';
+import 'package:hudson/app/models/billing_model.dart';
+import 'package:hudson/app/models/card_model.dart';
 
 class ExchangeModel {
   late int? id;
@@ -56,14 +56,10 @@ class ExchangeModel {
                       name: exchange["card_name"],
                       bank: exchange["bank_id"] != null
                           ? BankModel(
-                              id: exchange["bank_id"],
-                              name: exchange["bank_name"],
-                              imageUrl: exchange["bank_image"])
+                              id: exchange["bank_id"], name: exchange["bank_name"], imageUrl: exchange["bank_image"])
                           : null,
                       brand: BrandModel(
-                          id: exchange["brand_id"],
-                          name: exchange["brand_name"],
-                          imageUrl: exchange["brand_image"]),
+                          id: exchange["brand_id"], name: exchange["brand_name"], imageUrl: exchange["brand_image"]),
                       creditLimit: exchange["credit_limit"],
                       billingDueDay: exchange["billing_due_day"],
                       billingStartDay: exchange["billing_start_day"],
@@ -75,10 +71,7 @@ class ExchangeModel {
               id: exchange["account_id"],
               name: exchange["account_name"],
               bank: exchange["bank_id"] != null
-                  ? BankModel(
-                      id: exchange["bank_id"],
-                      name: exchange["bank_name"],
-                      imageUrl: exchange["bank_image"])
+                  ? BankModel(id: exchange["bank_id"], name: exchange["bank_name"], imageUrl: exchange["bank_image"])
                   : null,
               balance: exchange["balance"],
               type: exchange["account_type"])

@@ -1,4 +1,4 @@
-import 'package:app/app/models/account_model.dart';
+import 'package:hudson/app/models/account_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';

@@ -1,7 +1,7 @@
-import 'package:app/app/models/card_model.dart';
-import 'package:app/app/models/exchange_model.dart';
-import 'package:app/app/repositories/billing_repository.dart';
-import 'package:app/app/repositories/exchange_repository.dart';
+import 'package:hudson/app/models/card_model.dart';
+import 'package:hudson/app/models/exchange_model.dart';
+import 'package:hudson/app/repositories/billing_repository.dart';
+import 'package:hudson/app/repositories/exchange_repository.dart';
 
 class ExchangeController {
   late ExchangeRepository repository;

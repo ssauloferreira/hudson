@@ -1,9 +1,9 @@
-import 'package:app/app/controllers/account_controller.dart';
-import 'package:app/app/controllers/card_controller.dart';
-import 'package:app/app/controllers/exchange_controller.dart';
-import 'package:app/app/models/account_model.dart';
-import 'package:app/app/models/card_model.dart';
-import 'package:app/app/models/exchange_model.dart';
+import 'package:hudson/app/controllers/account_controller.dart';
+import 'package:hudson/app/controllers/card_controller.dart';
+import 'package:hudson/app/controllers/exchange_controller.dart';
+import 'package:hudson/app/models/account_model.dart';
+import 'package:hudson/app/models/card_model.dart';
+import 'package:hudson/app/models/exchange_model.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';

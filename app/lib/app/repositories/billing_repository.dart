@@ -1,6 +1,6 @@
-import 'package:app/app/database/db.dart';
-import 'package:app/app/models/billing_model.dart';
-import 'package:app/app/models/card_model.dart';
+import 'package:hudson/app/database/db.dart';
+import 'package:hudson/app/models/billing_model.dart';
+import 'package:hudson/app/models/card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -51,8 +51,7 @@ class BillingRepository extends ChangeNotifier {
   ''';
 
   updateBilling(BillingModel billing) async {
-    await db.update("billing", billing.toMap(),
-        where: "id = ?", whereArgs: [billing.id]);
+    await db.update("billing", billing.toMap(), where: "id = ?", whereArgs: [billing.id]);
   }
 
   insertBilling(BillingModel billing) async {
@@ -71,17 +70,14 @@ class BillingRepository extends ChangeNotifier {
 
   Future<BillingModel> getBillingByDate(CardModel card, DateTime date) async {
     DateTime currentStartBilling;
-    DateTime currentDueDay =
-        DateTime(date.year, date.month, card.billingDueDay!);
+    DateTime currentDueDay = DateTime(date.year, date.month, card.billingDueDay!);
     DateTime billingDueDay;
     BillingModel billing;
 
     if (card.billingDueDay! < card.billingStartDay!) {
-      currentStartBilling =
-          DateTime(date.year, date.month - 2, card.billingStartDay!);
+      currentStartBilling = DateTime(date.year, date.month - 2, card.billingStartDay!);
     } else {
-      currentStartBilling =
-          DateTime(date.year, date.month - 1, card.billingStartDay!);
+      currentStartBilling = DateTime(date.year, date.month - 1, card.billingStartDay!);
     }
 
     if (date.isBefore(currentStartBilling)) {
@@ -91,8 +87,7 @@ class BillingRepository extends ChangeNotifier {
     }
 
     final List<Map<String, dynamic>> data = await db.query("billing",
-        where: "card_id = ? AND month = ? AND year = ?",
-        whereArgs: [card.id, billingDueDay.month, billingDueDay.year]);
+        where: "card_id = ? AND month = ? AND year = ?", whereArgs: [card.id, billingDueDay.month, billingDueDay.year]);
 
     if (data.isEmpty) {
       billing = BillingModel(

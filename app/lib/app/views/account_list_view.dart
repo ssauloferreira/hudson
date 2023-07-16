@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:ffi';
 
-import 'package:app/app/components/sidebar_widget.dart';
-import 'package:app/app/controllers/account_controller.dart';
+import 'package:hudson/app/components/sidebar_widget.dart';
+import 'package:hudson/app/controllers/account_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';

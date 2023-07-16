@@ -1,5 +1,5 @@
-import 'package:app/app/models/card_model.dart';
-import 'package:app/app/repositories/card_repository.dart';
+import 'package:hudson/app/models/card_model.dart';
+import 'package:hudson/app/repositories/card_repository.dart';
 
 class CardController {
   late CardRepository repository;
