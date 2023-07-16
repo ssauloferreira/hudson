@@ -1,3 +1,5 @@
+<img src="docs\art\logo.png"  width=50% height=50%>
+
 # hudson
 Hudson is a project of a mobile application based on financees management.
 
@@ -43,9 +45,8 @@ The following section shows the main screenshots of the application, using some 
 ![Exchange details page](/docs/page-screenshots/ExchangeDetailsPage.png)
 
 ### Report Page
-<!-- ![Report page](/docs/page-screenshots/ReportPage.png, width: "50%") -->
 
-<img src="docs/page-screenshots/ReportPage.png"  width=33% height=33%>
+<img src="docs/page-screenshots/ReportPage.png"  width=50% height=50%>
 
 ## Widget Tree
 This section looks for present the widget trees from all the pages developed in this application. The home page show the most complex composition but the CRUD pages (i.e. list and details pages) are all similar to each others.
