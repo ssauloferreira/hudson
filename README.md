@@ -1,10 +1,10 @@
 <img src="docs\art\logo.png"  width=50% height=50%>
 
 # hudson
-Hudson is a project of a mobile application based on financees management.
+Hudson is a project of a mobile application for financial management.
 
 ## Context
-This project should become a mobile application of financees management. The main work goal is help people to add incomes and expenses in order to organize their financial movements. This app should be available initially for Android and (maybe) Web and for free.
+This project must be a mobile application of financial management. The main work goal is helping people to point their general incomes and expenses in order to organize their financial movements, making it possible by offering a quick view of recent transactions and organizing them by the days of the month. This app should be available initially for Android and (maybe) Web and for free.
 
 First things first, the app functionalities are the following:
 - Register recurring incomes and expenses
@@ -14,8 +14,7 @@ First things first, the app functionalities are the following:
 - Calendar view pointing the exchanges of each day of the month
 
 ## Technical Notes
-1. The app is being developed using Flutter framework in order to make it easy to expand to another platform.
-2. The database management system is initially SQLite and the data management is embbeded on the application code.
+The app is being developed using Flutter framework in order to make it easy to expand to another platform. For the first step, the database management system is based on SQLite and the data management is embbeded on the application code, with no back-end for a while. That decision was taken to make the application fully available offline with the simplest and quickest implementation, saving all the desired data local on the device. Although choosing a local database avoid multi-device syncing in this first version, that adoption bring more security to the user data, making it safer.
 
 ## Page Flow
 The following image presents the application flow diagram, when we can consider the black node "Login" as the starter point of the user workflow.
