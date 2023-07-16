@@ -26,6 +26,7 @@ class CardRepository extends ChangeNotifier {
           SELECT SUM(value * movement_type)
           FROM billing b, exchange e
           WHERE e.billing_id = b.id
+          AND b.card_id = c.id
           AND b.paid = 0
         ), 0
       )
@@ -36,8 +37,7 @@ class CardRepository extends ChangeNotifier {
   ''';
 
   updateCard(CardModel card) async {
-    await db
-        .update("card", card.toMap(), where: "id = ?", whereArgs: [card.id]);
+    await db.update("card", card.toMap(), where: "id = ?", whereArgs: [card.id]);
   }
 
   insertCard(CardModel card) async {

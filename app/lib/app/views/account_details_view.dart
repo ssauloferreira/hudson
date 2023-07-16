@@ -15,6 +15,7 @@ class AccountDetailsPage extends StatefulWidget {
 }
 
 class _AccountDetailsPageState extends State<AccountDetailsPage> {
+  bool initialized = false;
   late AccountModel account;
   late AccountModel oldAccount;
   late List<AccountTypeModel> accountTypes = [];
@@ -26,7 +27,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
 
   final accountController = AccountController();
   final MoneyMaskedTextController _moneyMaskedController =
-      MoneyMaskedTextController(decimalSeparator: ',', thousandSeparator: '.', leftSymbol: 'R\$');
+      MoneyMaskedTextController(decimalSeparator: ',', thousandSeparator: '.', leftSymbol: 'R\$', initialValue: 0.0);
 
   @override
   void initState() {
@@ -67,15 +68,19 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
     final data = ModalRoute.of(context)!.settings.arguments as AccountModel?;
 
     if (data == null) {
-      account = AccountModel();
+      if (!initialized) {
+        account = AccountModel();
+        initialized = true;
+      }
     } else {
       selectedBank = data.bank!;
       account = data;
+      initialized = true;
       oldAccount = account.clone();
     }
 
     _moneyMaskedController.text =
-        account.balance != null ? NumberFormat.simpleCurrency(locale: "pt-BR").format(account.balance) : "";
+        account.balance != null ? NumberFormat.simpleCurrency(locale: "pt-BR").format(account.balance) : "R\$ 0,00";
   }
 
   @override
@@ -125,7 +130,11 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextFormField(
                         onChanged: (text) {
-                          account.balance = _moneyMaskedController.numberValue;
+                          setState(
+                            () {
+                              account.balance = _moneyMaskedController.numberValue;
+                            },
+                          );
                         },
                         controller: _moneyMaskedController,
                         keyboardType: TextInputType.number,

@@ -19,6 +19,7 @@ class ExchangeDetailsPage extends StatefulWidget {
 }
 
 class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
+  bool initialized = false;
   late ExchangeModel exchange;
   late ExchangeModel oldExchange;
   late List<AccountModel> accounts = [];
@@ -79,8 +80,11 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
     final data = ModalRoute.of(context)!.settings.arguments as ExchangeModel?;
 
     if (data == null) {
-      exchange = ExchangeModel();
-      exchange.movementType = -1;
+      if (!initialized) {
+        exchange = ExchangeModel();
+        exchange.movementType = -1;
+        initialized = true;
+      }
     } else {
       selectedAccount = data.account;
       selectedCard = data.billing != null ? data.billing!.card : null;
@@ -88,12 +92,13 @@ class _ExchangeDetailsPageState extends State<ExchangeDetailsPage> {
           data.billing != null ? paymentMethod.CREDIT_CARD["key"] : paymentMethod.DEBIT_CARD["key"];
       movementTypeInitialValue = data.movementType! > 0 ? 1 : 0;
       exchange = data;
+      initialized = true;
       oldExchange = exchange.clone();
       _dateInputController.text = DateFormat("dd/MM/yyyy").format(exchange.date!);
     }
 
     _moneyMaskedController.text =
-        exchange.value != null ? NumberFormat.simpleCurrency(locale: "pt-BR").format(exchange.value) : "";
+        exchange.value != null ? NumberFormat.simpleCurrency(locale: "pt-BR").format(exchange.value) : "R\$ 0,00";
   }
 
   @override
@@ -322,8 +327,8 @@ class UpdateFloatingActionWidget extends StatelessWidget {
                 exchangeController.updateExchange(exchange);
               } else {
                 exchangeController.createExchange(exchange, selectedCard!);
-                Navigator.of(context).pop();
               }
+              Navigator.of(context).pop();
             },
           ),
         ),

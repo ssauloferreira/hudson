@@ -57,4 +57,45 @@ class ExchangeController {
 
     return groupedExchanges;
   }
+
+  // a function which get the total of exchanges this week
+  Future<Map<String, dynamic>> getRecentExchanges() async {
+    DateTime now = DateTime.now();
+    int weekday = now.weekday;
+
+    String where = "date >= ? AND date < ?";
+    List<dynamic> whereArgs = [
+      DateTime(now.year, now.month, now.day - weekday).millisecondsSinceEpoch,
+      DateTime(now.year, now.month, now.day).millisecondsSinceEpoch
+    ];
+
+    List<ExchangeModel> exchanges = await repository.getExchangesByFilters(where, whereArgs);
+    double totalWeek = 0;
+
+    for (var element in exchanges) {
+      if (element.movementType == 1) {
+        totalWeek += element.value!;
+      } else {
+        totalWeek -= element.value!;
+      }
+    }
+
+    whereArgs = [
+      DateTime(now.year, now.month, 1).millisecondsSinceEpoch,
+      DateTime(now.year, now.month, now.day).millisecondsSinceEpoch
+    ];
+
+    exchanges = await repository.getExchangesByFilters(where, whereArgs);
+    double totalMonth = 0;
+
+    for (var element in exchanges) {
+      if (element.movementType == 1) {
+        totalMonth += element.value!;
+      } else {
+        totalMonth -= element.value!;
+      }
+    }
+
+    return {"thisWeek": totalWeek, "thisMonth": totalMonth};
+  }
 }

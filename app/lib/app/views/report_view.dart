@@ -118,31 +118,27 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   String getWeekDay(int i) {
-    print(weekLetter[i]);
     return weekLetter[i];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
-      child: CalendarControllerProvider(
-        controller: _eventController..addAll(getEvents()),
-        child: MaterialApp(
-          home: Scaffold(
-            body: MonthView(
-              headerStyle: HeaderStyle(decoration: BoxDecoration(color: Colors.white.withOpacity(0.5))),
-              showBorder: true,
-              borderColor: Colors.transparent,
-              cellAspectRatio: 0.8,
-              weekDayStringBuilder: getWeekDay,
-              onPageChange: (date, pageIndex) {
-                setState(() {
-                  _date = date;
-                  refreshData();
-                });
-              },
-            ),
+    return CalendarControllerProvider(
+      controller: _eventController..addAll(getEvents()),
+      child: MaterialApp(
+        home: Scaffold(
+          body: MonthView(
+            headerStyle: HeaderStyle(decoration: BoxDecoration(color: Colors.white.withOpacity(0.5))),
+            showBorder: true,
+            borderColor: Colors.transparent,
+            cellAspectRatio: 0.7,
+            weekDayStringBuilder: getWeekDay,
+            onPageChange: (date, pageIndex) {
+              setState(() {
+                _date = date;
+                refreshData();
+              });
+            },
           ),
         ),
       ),

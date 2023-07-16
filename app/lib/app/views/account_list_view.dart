@@ -70,7 +70,7 @@ class _AccountListPageState extends State<AccountListPage> {
             Navigator.of(context).pushNamed('/account_details', arguments: e).then(onBack);
           },
           child: Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(15),
             child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Row(

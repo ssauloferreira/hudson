@@ -15,6 +15,7 @@ class CardDetailsPage extends StatefulWidget {
 }
 
 class _CardDetailsPageState extends State<CardDetailsPage> {
+  bool initialized = false;
   late CardModel card;
   late CardModel oldCard;
   late List<BankModel> banks = [];
@@ -69,11 +70,15 @@ class _CardDetailsPageState extends State<CardDetailsPage> {
     final data = ModalRoute.of(context)!.settings.arguments as CardModel?;
 
     if (data == null) {
-      card = CardModel();
+      if (!initialized) {
+        card = CardModel();
+        initialized = true;
+      }
     } else {
       selectedBank = data.bank;
       selectedBrand = data.brand;
       card = data;
+      initialized = true;
       oldCard = card.clone();
     }
 

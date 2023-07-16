@@ -43,7 +43,10 @@ class DB {
     db.execute(_insertAccountTypes);
     db.execute(_insertBanks);
     db.execute(_insertBrands);
-    db.execute(_insertDefaultData);
+    db.execute(_insertAccounts);
+    db.execute(_insertCards);
+    db.execute(_insertBillings);
+    db.execute(_insertExchanges);
   }
 
   String get _bank => '''
@@ -51,14 +54,14 @@ class DB {
       id INTEGER PRIMARY KEY,
       name TEXT NOT NULL,
       image_url TEXT
-    );
+    )
   ''';
 
   String get _accountType => '''
     CREATE TABLE account_type (
       id INTEGER PRIMARY KEY,
       name TEXT NOT NULL
-    );
+    )
   ''';
 
   String get _account => '''
@@ -75,7 +78,7 @@ class DB {
       FOREIGN KEY(account_type_id) REFERENCES account_type (id)
         ON DELETE CASCADE
         ON UPDATE NO ACTION
-    );
+    )
   ''';
 
   String get _brand => '''
@@ -83,7 +86,7 @@ class DB {
       id INTEGER PRIMARY KEY,
       name TEXT NOT NULL,
       image_url TEXT NOT NULL
-    );
+    )
   ''';
 
   String get _card => '''
@@ -102,7 +105,7 @@ class DB {
       FOREIGN KEY(brand_id) REFERENCES brand (id)
         ON DELETE CASCADE
         ON UPDATE NO ACTION
-    );
+    )
   ''';
 
   String get _billing => '''
@@ -118,7 +121,7 @@ class DB {
       FOREIGN KEY(card_id) REFERENCES card (id)
         ON DELETE CASCADE
         ON UPDATE NO ACTION
-    );
+    )
   ''';
 
   String get _exchange => '''
@@ -138,43 +141,55 @@ class DB {
       FOREIGN KEY(billing_id) REFERENCES billing (id)
         ON DELETE CASCADE
         ON UPDATE NO ACTION
-    );
+    )
   ''';
 
   String get _insertBanks => '''
-    INSERT INTO bank (name, image_url) VALUES ('Santander', 'https://i.pinimg.com/originals/d7/96/dc/d796dcc6d450e585e28a550777211b0a.jpg');
-    INSERT INTO bank (name, image_url) VALUES ('Itaú', 'https://apprecs.org/gp/images/app-icons/300/20/com.itau.jpg');
+    INSERT INTO bank (name, image_url)
+    VALUES ('Santander', 'https://i.pinimg.com/originals/d7/96/dc/d796dcc6d450e585e28a550777211b0a.jpg'),
+    ('Itaú', 'https://apprecs.org/gp/images/app-icons/300/20/com.itau.jpg');
   ''';
 
   String get _insertBrands => '''
-    INSERT INTO brand (name, image_url) VALUES ('Mastercard', 'https://www.mastercard.com/content/dam/public/brandcenter/content-1.png');
-    INSERT INTO brand (name, image_url) VALUES ('Visa', 'https://logowik.com/content/uploads/images/857_visa.jpg');
+    INSERT INTO brand (name, image_url) VALUES ('Mastercard', 'https://www.mastercard.com/content/dam/public/brandcenter/content-1.png'),
+    ('Visa', 'https://logowik.com/content/uploads/images/857_visa.jpg');
   ''';
 
   String get _insertAccountTypes => '''
-    INSERT INTO account_type (name) VALUES ('Conta Corrente');
-    INSERT INTO account_type (name) VALUES ('Conta de Pagamento');
-    INSERT INTO account_type (name) VALUES ('Poupança');
+    INSERT INTO account_type (name) VALUES ('Conta Corrente'), ('Conta de Pagamento'),('Poupança')
   ''';
 
-  String get _insertDefaultData => '''
-    INSERT INTO "main"."account" ("id", "name", "bank_id", "account_type_id", "balance") VALUES ('1', 'Minha poupança', '1', '1', '111.13');
-
-    INSERT INTO "main"."card" ("id", "name", "bank_id", "brand_id", "credit_limit", "billing_due_day", "billing_start_day") VALUES ('1', 'Uniclass Platinum', '1', '2', '1100.0', '5', '28');
-
-    INSERT INTO "main"."billing" ("id", "month", "year", "card_id", "paid", "billing_due_day", "billing_start_day") VALUES ('1', '6', '2023', '1', '0', '1', '12');
-    INSERT INTO "main"."billing" ("id", "month", "year", "card_id", "paid", "billing_due_day", "billing_start_day") VALUES ('2', '7', '2023', '1', '0', '5', '28');
-
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('1', 'Compra genérica', '1234', '135.0', 'DEBIT', '-1', '1', '1');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('2', 'Teste 2', '1688007600000', '120.09', 'DEBIT', '-1', '1', '1');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('3', 'Salário', '1685588400000', '1500.0', 'DEBIT', '1', '', '1');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('4', 'Outro gasto', '1662433200000', '90.87', 'DEBIT', '-1', '', '1');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('5', 'Teste 23', '1685674800000', '12.22', 'CREDIT', '-1', '1', '');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('6', 'aa', '1685847600000', '1212.12', 'CREDIT', '-1', '2', '');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('7', 'Teste 1', '1688353200000', '122.22', 'DEBIT', '-1', '', '1');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('8', 'Teste 2', '1688353200000', '10000.0', 'DEBIT', '-1', '', '1');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('9', 'Teste 3', '1688526000000', '19.0', 'DEBIT', '-1', '', '1');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('10', 'drdrdr', '1688526000000', '10.0', 'DEBIT', '-1', '', '1');
-    INSERT INTO "main"."exchange" ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") VALUES ('11', 'bhubub', '1688526000000', '30.0', 'DEBIT', '1', '', '1');
+  String get _insertAccounts => '''
+    INSERT INTO "main"."account" ("id", "name", "bank_id", "account_type_id", "balance") 
+    VALUES (1, 'Minha poupança', 1, 1, 111.13)
   ''';
+
+  String get _insertCards => '''
+    INSERT INTO "main"."card" ("id", "name", "bank_id", "brand_id", "credit_limit", "billing_due_day", "billing_start_day") 
+    VALUES (1, 'Uniclass Platinum', 1, 2, 1100.0, 5, 28)
+  ''';
+
+  String get _insertBillings => '''
+  INSERT INTO "main"."billing" ("id", "month", "year", "card_id", "paid", "billing_due_day", "billing_start_day") 
+  VALUES 
+    (1, 6, 2023, 1, 0, 1, 12),
+    (2, 7, 2023, 1, 0, 5, 28)
+  ''';
+
+  String get _insertExchanges => '''
+    INSERT INTO "main"."exchange" 
+      ("id", "description", "date", "value", "payment_type", "movement_type", "billing_id", "account_id") 
+    VALUES 
+      (1, 'Compra genérica', 1234, 135.0, 'DEBIT', -1, 1, 1),
+      (2, 'Teste 2', 1688007600000, 120.09, 'DEBIT', -1, 1, 1),
+      (3, 'Salário', 1685588400000, 1500.0, 'DEBIT', 1, null, 1),
+      (4, 'Outro gasto', 1662433200000, 90.87, 'DEBIT', -1, null, 1),
+      (9, 'Teste 3', 1688526000000, 19.0, 'DEBIT', -1, null, 1),
+      (5, 'Teste 23', 1685674800000, 12.22, 'CREDIT', -1, 1, null),
+      (10, 'bhubub', 1688526000000, 30.0, 'DEBIT', 1, null, 1),
+      (6, 'aa', 1685847600000, 1212.12, 'CREDIT', -1, 2, null),
+      (7, 'Teste 1', 1688353200000, 122.22, 'DEBIT', -1, null, 1),
+      (8, 'Teste 2', 1688353200000, 10000.0, 'DEBIT', -1, null, 1),
+      (11, 'drdrdr', 1688526000000, 10.0, 'DEBIT', -1, null, 1)
+''';
 }

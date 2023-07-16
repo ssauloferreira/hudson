@@ -36,8 +36,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color.fromARGB(255, 255, 131, 85),
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromARGB(255, 255, 131, 85),
-          secondary: const Color.fromARGB(255, 232, 104, 124),
-          tertiary: const Color.fromARGB(255, 183, 96, 147),
+          secondary: const Color.fromARGB(255, 255, 131, 85),
         ),
       ),
       // home: LoginPage(),

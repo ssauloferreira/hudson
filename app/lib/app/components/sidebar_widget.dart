@@ -7,28 +7,13 @@ class SidebarDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          // DrawerHeader(
-          //   child: SizedBox(
-          //     height: double.infinity,
-          //     width: double.infinity,
-          //     child: Container(
-          //       color: Colors.blue,
-          //       child: Text(
-          //         'Menu',
-          //         style: TextStyle(
-          //           color: Colors.white,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
           UserAccountsDrawerHeader(
-            accountEmail: Text("curtisjones@lfc.uk"),
-            accountName: Text("Curtis Jones"),
+            accountEmail: Text("curtisjones@lfc.uk", style: TextStyle(color: Colors.white)),
+            accountName: Text("Curtis Jones", style: TextStyle(color: Colors.white)),
             currentAccountPicture: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                  "https://resources.premierleague.com/premierleague/photos/players/250x250/p206915.png"),
+              child:
+                  Image.network("https://resources.premierleague.com/premierleague/photos/players/250x250/p206915.png"),
             ),
           ),
           ListTile(
@@ -54,21 +39,6 @@ class SidebarDrawer extends StatelessWidget {
             subtitle: Text("Sair do aplicativo"),
             onTap: () => {Navigator.of(context).pushReplacementNamed('/')},
           ),
-          // ListTile(
-          //   leading: Icon(Icons.settings),
-          //   title: Text('Settings'),
-          //   onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.border_color),
-          //   title: Text('Feedback'),
-          //   onTap: () => {Navigator.of(context).pop()},
-          // ),
-          // ListTile(
-          //   leading: Icon(Icons.exit_to_app),
-          //   title: Text('Logout'),
-          //   onTap: () => {Navigator.of(context).pop()},
-          // ),
         ],
       ),
     );

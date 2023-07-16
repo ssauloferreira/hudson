@@ -16,7 +16,7 @@ class ExchangeRepository extends ChangeNotifier {
 
   String get _selectExchanges => '''
     SELECT 
-      e.id, e.description, e.value, e.movement_type, e.billing_id, e.account_id, e.date,
+      e.id, e.description, e.value, e.movement_type, e.billing_id, e.account_id, e.date, e.payment_type,
       
       b.id as billing_id, b.month, b.year, b.paid, b.billing_due_day,
       b.billing_start_day, c.id as card_id, c.name as card_name,
@@ -41,8 +41,7 @@ class ExchangeRepository extends ChangeNotifier {
   ''';
 
   updateExchange(ExchangeModel exchange) async {
-    await db.update("exchange", exchange.toMap(),
-        where: "id = ?", whereArgs: [exchange.id]);
+    await db.update("exchange", exchange.toMap(), where: "id = ?", whereArgs: [exchange.id]);
   }
 
   insertExchange(ExchangeModel exchange) async {
@@ -59,11 +58,9 @@ class ExchangeRepository extends ChangeNotifier {
     return List.generate(data.length, (i) => ExchangeModel.fromMap(data[i]));
   }
 
-  Future<List<ExchangeModel>> getExchangesByFilters(
-      String where, List whereArgs) async {
+  Future<List<ExchangeModel>> getExchangesByFilters(String where, List whereArgs) async {
     db = await DB.instance.database;
-    final List<Map<String, dynamic>> data =
-        await db.query("exchange", where: where, whereArgs: whereArgs);
+    final List<Map<String, dynamic>> data = await db.query("exchange", where: where, whereArgs: whereArgs);
     return List.generate(data.length, (i) => ExchangeModel.fromMap(data[i]));
   }
 }

@@ -28,20 +28,28 @@ class _LoginPageState extends State<LoginPage> {
                 const Image(
                   image: ResizeImage(AssetImage('assets/images/hudson-light-transparent.png'), width: 350, height: 350),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 10),
                 TextField(
                   onChanged: (text) {
                     email = text;
                   },
-                  decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'Email'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+                    labelText: 'Email',
+                    filled: true,
+                  ),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: 10),
                 TextField(
                   onChanged: (text) {
                     password = text;
                   },
                   obscureText: true,
-                  decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'Senha'),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
+                    labelText: 'Senha',
+                    filled: true,
+                  ),
                 ),
                 SizedBox(height: 15),
                 FilledButton(
